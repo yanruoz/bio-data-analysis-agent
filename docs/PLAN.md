@@ -117,9 +117,8 @@ Only tools that address a challenge the profiler can detect in at least one of t
 | Clustering (k-means, silhouette scan, density cross-check) + ARI vs labels | P1 | unlabeled structure; checks whether labels match data structure | no labels, or labels to compare against | pbmc, rocov2 |
 | Embedding probe (kNN / logistic with stratified split, macro-F1 vs majority baseline) | new (small) | `class_imbalance`, `unstructured_modality`, `label_input_leakage` (image-only vs text-only probe) | declared labels; imbalance ratio sets macro-F1 | rocov2, pbmc |
 | Representation learning (P3: frozen encoders, CCA/contrastive alignment, retrieval recall@k) | P3 via `tools/p3_adapter.py` | `multimodal_paired`, `unstructured_modality` | ≥2 paired modalities; image/text kinds need pretrained encoders | rocov2, pbmc |
-| VAE outlier score (NB-VAE −ELBO vs kNN-distance baseline) | P2 `models/vae.py` + training loop | `qc_outliers` (possible doublets / low-quality cells) | QC-tail fraction above threshold in count data | papalexi, pbmc (first item on cut list) |
 
-**Not wired up (listed in the report as extensions):** t-SNE, kernel/sparse PCA, MDS, Isomap, LLE, Laplacian eigenmaps, diffusion maps (P1: no challenge in our data that PCA/UMAP doesn't already cover; diffusion maps would fit trajectories, which none of the datasets has); P2 flow, GAN, diffusion model, imputation, TSTR augmentation (no challenge needs synthetic data; scRNA zeros are not missing values); Mixscape-style escaper classification (perturbation heterogeneity is not detectable from the profile alone); learned batch integration (Harmony/scVI).
+**Not wired up (listed in the report as extensions):** P2 NB-VAE outlier scoring (moved here on Nov 22: both count datasets are already QC-filtered, so `qc_outliers` fires on none of them; QC tails are 0 to 0.5%); t-SNE, kernel/sparse PCA, MDS, Isomap, LLE, Laplacian eigenmaps, diffusion maps (P1: no challenge in our data that PCA/UMAP doesn't already cover; diffusion maps would fit trajectories, which none of the datasets has); P2 flow, GAN, diffusion model, imputation, TSTR augmentation (no challenge needs synthetic data; scRNA zeros are not missing values); Mixscape-style escaper classification (perturbation heterogeneity is not detectable from the profile alone); learned batch integration (Harmony/scVI).
 
 ### P3 as a tool
 - `scripts/tools/p3_adapter.py --request req.json --out result.json`. Request: dataset, modalities, labels, task (`retrieval` / `label_transfer`), budget, seeds.
@@ -157,12 +156,11 @@ Working rules for CLAUDE.md: dates are an ordering, not gates; keep going betwee
 
 ## 8. Cut list (cut from the top)
 
-1. VAE outlier scoring (keep MAD QC flags in the profile)
-2. Batch-aware centering (report the diagnostic only)
-3. Critic-driven plan revision (keep the critique, drop the second pass)
-4. P3 trained models (use P3 frozen embeddings only)
-5. Full pbmc run (keep profile + challenges as a robustness check)
-6. Slide polish (plain 8-slide deck)
+1. Batch-aware centering (report the diagnostic only)
+2. Critic-driven plan revision (keep the critique, drop the second pass)
+3. P3 trained models (use P3 frozen embeddings only)
+4. Full pbmc run (keep profile + challenges as a robustness check)
+5. Slide polish (plain 8-slide deck)
 
 Never cut: profiler challenge detection, challenges.json + validator, plan validator linking challenges to tools, a baseline for every metric, both generated reports, report.pdf, slides, the docs/ read deny.
 
