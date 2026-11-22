@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+venv/
+.venv/
+
+# Secrets
+.env
+
+# Data, models, and run artifacts
+# Data files are fetched by run.sh; only each dataset's DATA_DESCRIPTION.md is tracked.
+# cache/ holds encoder embeddings (rebuilt by tools/p3 after the P3 sync).
+data/*/*
+!data/*/DATA_DESCRIPTION.md
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+outputs/
+cache/
+wandb/
+lightning_logs/
+
+# OS
+.DS_Store
+.Rhistory

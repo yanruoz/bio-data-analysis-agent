@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(venv/bin/python scripts/*)",
+      "Bash(ls *)",
+      "Read(./**)",
+      "Edit(./outputs/**)",
+      "Write(./outputs/**)",
+      "Agent(bio-critic)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./docs/**)",
+      "Read(./CLAUDE.md)",
+      "Read(./README.md)",
+      "Read(./resources/**)",
+      "Read(./tools/p3/docs/**)",
+      "Read(./tools/p3/CLAUDE.md)",
+      "Read(./tools/p3/README.md)",
+      "Bash(ls *docs*)",
+      "Bash(ls *resources*)",
+      "Edit(./data/**)",
+      "Write(./data/**)",
+      "Edit(./cache/**)",
+      "Write(./cache/**)",
+      "Edit(./reports/**)",
+      "Write(./reports/**)",
+      "Edit(./scripts/**)",
+      "Write(./scripts/**)",
+      "Edit(./tools/**)",
+      "Write(./tools/**)",
+      "Bash(venv/bin/python scripts/fetch_data.py*)",
+      "Bash(*pip install*)",
+      "Bash(cd *)",
+      "Bash(rm *)",
+      "Bash(git *)",
+      "WebFetch",
+      "WebSearch"
+    ]
+  }
+}
